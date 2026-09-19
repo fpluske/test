@@ -1,0 +1,113 @@
+/* Dark theme for the Django admin */
+:root {
+  --admin-bg: #101719;
+  --admin-panel: #182426;
+  --admin-panel-raised: #203033;
+  --admin-border: #35484a;
+  --admin-text: #edf4ee;
+  --admin-muted: #a8bbb2;
+  --admin-accent: #ff6600;
+  --admin-accent-soft: #ff8a3d;
+}
+
+html, body {
+  background: var(--admin-bg) !important;
+  color: var(--admin-text) !important;
+}
+
+body, input, textarea, select, button {
+  font-family: "DM Sans", sans-serif;
+}
+
+#header {
+  background: #0b1011 !important;
+  color: var(--admin-text) !important;
+  border-bottom: 3px solid var(--admin-accent);
+}
+#branding h1, #branding h1 a:link, #branding h1 a:visited,
+#user-tools, #user-tools a {
+  color: var(--admin-text) !important;
+}
+#user-tools a:hover { color: var(--admin-accent-soft) !important; }
+
+#content, .module, .inline-group, .submit-row, .aligned {
+  color: var(--admin-text);
+}
+#content-main .module, .module, .inline-group {
+  background: var(--admin-panel);
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.module caption, .module h2, .inline-group h2 {
+  background: #0b1011 !important;
+  color: var(--admin-text) !important;
+}
+.module caption a, .module h2 a { color: var(--admin-text) !important; }
+
+a:link, a:visited { color: #ff9a61; }
+a:hover { color: #ffc09a; }
+.object-tools a, .addlink, .changelink {
+  background: var(--admin-accent) !important;
+  color: #19100a !important;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.object-tools a:hover, .addlink:hover, .changelink:hover { background: var(--admin-accent-soft) !important; }
+
+#changelist-filter, #changelist-form .results, .results table, .paginator,
+.form-row, .submit-row {
+  background: var(--admin-panel) !important;
+  border-color: var(--admin-border) !important;
+}
+#changelist-filter h2, #changelist-filter h3 {
+  background: #0b1011 !important;
+  color: var(--admin-text) !important;
+}
+#changelist-filter li.selected a { color: var(--admin-accent-soft) !important; }
+.results th, .results td, table thead th, table tbody td {
+  border-color: var(--admin-border) !important;
+}
+.results tr:nth-child(odd) { background: #1b292b !important; }
+.results tr:nth-child(even) { background: var(--admin-panel) !important; }
+.results tr:hover { background: #294043 !important; }
+.results th a { color: var(--admin-text) !important; }
+
+input, textarea, select, .selector-chosen, .selector-available {
+  background: #0d1516 !important;
+  color: var(--admin-text) !important;
+  border: 1px solid var(--admin-border) !important;
+  border-radius: 4px;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--admin-accent) !important;
+  outline: 2px solid #ff660044;
+}
+.help, p.help, .help-tooltip { color: var(--admin-muted) !important; }
+.button, input[type="submit"], input[type="button"], .submit-row input {
+  background: var(--admin-accent) !important;
+  color: #19100a !important;
+  border: 0 !important;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.button:hover, input[type="submit"]:hover, input[type="button"]:hover { background: var(--admin-accent-soft) !important; }
+.delete-link { color: #ff8e8e !important; }
+
+.messagelist li { background: #214b3b !important; color: #d9f8e4 !important; border-radius: 4px; }
+.errornote, ul.errorlist { background: #552b2b !important; color: #ffdada !important; }
+#nav-sidebar { background: #0b1011 !important; border-right: 1px solid var(--admin-border); }
+#nav-sidebar a { color: var(--admin-muted) !important; }
+#nav-sidebar a:hover, #nav-sidebar .current-model a { color: var(--admin-accent-soft) !important; }
+.breadcrumbs { background: var(--admin-panel) !important; border-bottom: 1px solid var(--admin-border); color: var(--admin-muted) !important; }
+
+.login #container { background: var(--admin-bg); }
+.login .form-row { background: transparent !important; }
+.login #content-main { background: var(--admin-panel); border: 1px solid var(--admin-border); border-radius: 8px; padding: 1.5rem; }
+.login .submit-row { border: 0 !important; }
+
+@media (max-width: 767px) {
+  #header { padding: 12px 16px; }
+  #content { padding: 16px; }
+  #content-main .module { overflow-x: auto; }
+}

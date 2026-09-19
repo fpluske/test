@@ -1,0 +1,762 @@
+body .chapter-nav {
+    min-height: 13vh;
+}
+
+body .chapter {
+    min-height: 13vh;
+    min-width: 0;
+}
+
+body .chapter-toggle {
+    min-height: 13vh;
+    padding: 1rem 1.4vw;
+    flex-direction: row;
+    align-items: center;
+    gap: .7rem;
+}
+
+body .chapter-icon {
+    font-size: 1.8rem;
+}
+
+body .chapter-name {
+    font: 700 clamp(.95rem, 1.55vw, 1.4rem)/1 "Playfair Display", serif;
+    white-space: nowrap;
+}
+
+body .chapter-name br {
+    display: none;
+}
+
+body .chapter-arrow {
+    margin-left: auto;
+    font-size: 1rem;
+}
+
+body .book-menu {
+    top: 100%;
+}
+
+.nav-brand {
+    width: 120px;
+    min-height: 13vh;
+    padding: .6rem .8rem;
+    display: grid;
+    place-items: center;
+    background: black;
+}
+
+.nav-brand img {
+    display: block;
+    width: auto;
+    max-width: 92px;
+    object-fit: contain;
+}
+:root {
+    --ink: #183b3b;
+    --paper: #f7f3e9;
+    --coral: #ff6600;
+    --yellow: #66cb00;
+    --mint: #3698ff;
+    --blue: #cb36ff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    color: var(--ink);
+    background: var(--paper);
+    font-family: "DM Sans", sans-serif;
+}
+
+.page-load-bar {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .15s ease;
+}
+
+.page-load-progress {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--ink);
+    transform: translateX(-100%);
+}
+
+.page-load-bar.is-loading { opacity: 1; }
+.page-load-bar.is-loading .page-load-progress { animation: page-load-progress 1.1s cubic-bezier(.2,.7,.2,1) forwards; }
+.page-load-bar[data-category="elementary"] .page-load-progress { background: var(--coral); }
+.page-load-bar[data-category="kindergarten"] .page-load-progress { background: var(--yellow); }
+.page-load-bar[data-category="canteen"] .page-load-progress { background: var(--mint); }
+.page-load-bar[data-category="club"] .page-load-progress { background: var(--blue); }
+
+@keyframes page-load-progress {
+    0% { transform: translateX(-100%); }
+    70% { transform: translateX(-12%); }
+    100% { transform: translateX(0); }
+}
+
+.search {
+    width: 100vw;
+    min-height: 48px;
+    margin-left: calc(50% - 50vw);
+    padding: .8rem 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: #000;
+    color: #fff;
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.search time {
+    color: #d8d8d8;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.search img {
+    display: block;
+    width: auto;
+    max-width: 180px;
+    max-height: 32px;
+    object-fit: contain;
+}
+
+.chapter-nav {
+    display: grid;
+    grid-template-columns: 120px repeat(4, minmax(0, 1fr));
+    min-height: 27vh;
+    position: relative;
+    z-index: 3;
+}
+
+.chapter {
+    min-height: 27vh;
+    position: relative;
+    perspective: 900px;
+}
+
+.chapter-toggle {
+    width: 100%;
+    height: 100%;
+    min-height: 27vh;
+    padding: 1.4rem 2vw 1.2rem;
+    border: 0;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    font: inherit;
+    transition: filter .25s ease;
+}
+
+.chapter-toggle:hover,
+.chapter:focus-within .chapter-toggle {
+    filter: brightness(1.04);
+}
+
+.chapter--elementary .chapter-toggle {
+    background: var(--coral);
+}
+
+.chapter--kindergarten .chapter-toggle {
+    background: var(--yellow);
+}
+
+.chapter--canteen .chapter-toggle {
+    background: var(--mint);
+}
+
+.chapter--club .chapter-toggle {
+    background: var(--blue);
+}
+
+.chapter-icon {
+    font-size: 2.6rem;
+    line-height: 1;
+    font-family: Georgia, serif;
+}
+
+.chapter-name {
+    font: 700 clamp(1.25rem, 2.4vw, 2.4rem)/.95 "Playfair Display", serif;
+}
+
+.chapter-arrow {
+    align-self: flex-end;
+    font-size: 1.5rem;
+    transition: transform .35s ease;
+}
+
+.chapter:hover .chapter-arrow,
+.chapter:focus-within .chapter-arrow,
+.chapter.is-open .chapter-arrow {
+    transform: rotate(-45deg);
+}
+
+.book-menu {
+    position: absolute;
+    z-index: 4;
+    top: 100%;
+    left: 4%;
+    right: 4%;
+    padding: 1.1rem 1.15rem 1.35rem;
+    background: #e9e1d0;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 16px 0 -10px #d6cdb9, 0 25px 30px #183b3b2b;
+    transform-origin: top center;
+    transform: rotateX(-90deg);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform .38s cubic-bezier(.2, .8, .2, 1), opacity .25s ease;
+}
+
+.book-menu::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 2%;
+    right: 2%;
+    bottom: -5px;
+    height: 100%;
+    border-radius: 0 0 8px 8px;
+    background: #d9cfbd;
+    box-shadow: 0 3px 0 #c9bda8, 0 6px 0 #b9aa93;
+}
+
+.book-menu::after {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    left: 4%;
+    right: 4%;
+    bottom: -10px;
+    height: 100%;
+    border-radius: 0 0 8px 8px;
+    background: #c9bda8;
+}
+
+.chapter:hover .book-menu,
+.chapter:focus-within .book-menu,
+.chapter.is-open .book-menu {
+    transform: rotateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.menu-kicker {
+    margin: 0 0 1rem;
+    color: #55706b;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: .62rem;
+    font-weight: 700;
+}
+
+.book-menu a {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 42px;
+    margin: 0 0 12px;
+    padding: .62rem .85rem .62rem 1rem;
+    border: 1px solid #c7bba6;
+    border-radius: 2px 5px 5px 2px;
+    background: #fffdf7;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: .85rem;
+    font-weight: 600;
+    box-shadow: 0 4px 0 #e3d8c5, 0 7px 0 #cfc2ad;
+    transform-origin: left center;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.book-menu a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 8px;
+    border-left: 1px solid #d7cbb8;
+    box-shadow: 2px 0 0 #fffdf7;
+}
+
+.book-menu a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 5px;
+    border-radius: 2px 0 0 2px;
+    background: var(--chapter-accent, var(--coral));
+}
+
+.chapter--elementary .book-menu a {
+    --chapter-accent: var(--coral);
+}
+
+.chapter--kindergarten .book-menu a {
+    --chapter-accent: var(--yellow);
+}
+
+.chapter--canteen .book-menu a {
+    --chapter-accent: var(--mint);
+}
+
+.chapter--club .book-menu a {
+    --chapter-accent: var(--blue);
+}
+
+.book-menu a:last-child {
+    margin-bottom: 0;
+}
+
+.book-menu a span {
+    transition: transform .2s ease;
+}
+
+.book-menu a:hover {
+    background: #fffaf0;
+    transform: translateX(5px) rotate(-1deg);
+    box-shadow: 0 5px 0 #e3d8c5, 0 9px 0 #cfc2ad;
+}
+
+.book-menu a:hover span {
+    transform: translateX(4px);
+}
+
+.welcome {
+    min-height: 73vh;
+    padding: 5rem 8vw 3.5rem;
+    display: grid;
+    grid-template-columns: .95fr 1.05fr;
+    align-items: center;
+    gap: 5vw;
+    overflow: hidden;
+}
+
+.section-kicker {
+    margin: 0 0 .2rem;
+    color: var(--coral);
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: .65rem;
+    font-weight: 700;
+}
+
+h2 {
+    margin: .8rem 0 1.2rem;
+    font: 700 clamp(2.6rem, 5vw, 5.7rem)/.9 "Playfair Display", serif;
+}
+
+h1 {
+    margin: .8rem 0 1.2rem;
+    font: 700 clamp(2.6rem, 5vw, 5.7rem)/.9 "Playfair Display", serif;
+}
+
+h2 em {
+    color: var(--coral);
+    font-style: normal;
+}
+
+.welcome-text {
+    max-width: 390px;
+    line-height: 1.65;
+    color: #55706b;
+}
+
+.text-link {
+    display: inline-flex;
+    gap: .8rem;
+    margin-top: 1.2rem;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: .85rem;
+    font-weight: 700;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: .35rem;
+}
+
+.welcome-illustration {
+    min-height: 290px;
+    position: relative;
+    overflow: hidden;
+    background: #f0dfaf;
+    border-radius: 48% 52% 42% 58% / 61% 48% 52% 39%;
+}
+
+.error-page {
+    min-height: 73vh;
+    padding: 4rem 8vw 3.5rem;
+    display: grid;
+    grid-template-columns: .95fr 1.05fr;
+    align-items: center;
+    gap: 5vw;
+    overflow: hidden;
+    background: var(--paper);
+}
+
+.error-code {
+    margin: 1.5rem 0 -.2rem;
+    color: var(--coral);
+    font: 700 clamp(5rem, 14vw, 11rem)/.75 "Playfair Display", serif;
+    letter-spacing: .02em;
+}
+
+.error-copy h1 { margin-top: 1.2rem; }
+.error-illustration {
+    min-height: 310px;
+    position: relative;
+    overflow: hidden;
+    background: #f0dfaf;
+    border-radius: 48% 52% 42% 58% / 61% 48% 52% 39%;
+}
+
+.error-page-shape {
+    position: absolute;
+    left: 20%;
+    bottom: 14%;
+    width: 53%;
+    height: 50%;
+    border-radius: 50% 50% 8% 8%;
+    background: var(--coral);
+    transform: rotate(-8deg);
+    box-shadow: 20px -28px 0 -8px var(--yellow), -42px 18px 0 -12px var(--blue);
+}
+
+.error-question, .error-star, .error-arrow {
+    position: absolute;
+    color: var(--ink);
+    font: 700 4rem "Playfair Display", serif;
+}
+.error-question { top: 15%; right: 22%; transform: rotate(14deg); }
+.error-star { top: 22%; left: 18%; color: #fff7dd; transform: rotate(20deg); }
+.error-arrow { right: 17%; bottom: 20%; font-family: "DM Sans", sans-serif; transform: rotate(-18deg); }
+
+.sun {
+    position: absolute;
+    top: 12%;
+    right: 14%;
+    width: 76px;
+    height: 76px;
+    background: #e96e55;
+    border-radius: 50%;
+}
+
+.hill {
+    position: absolute;
+    bottom: -22%;
+    width: 130%;
+    height: 66%;
+    border-radius: 50% 50% 0 0;
+}
+
+.hill--back {
+    left: -25%;
+    background: #a6cdb2;
+}
+
+.hill--front {
+    left: 17%;
+    bottom: -33%;
+    background: #5da4b8;
+    transform: rotate(-5deg);
+}
+
+.tree {
+    position: absolute;
+    bottom: 26%;
+    width: 9px;
+    height: 90px;
+    background: var(--ink);
+    transform-origin: bottom;
+}
+
+.tree i,
+.tree b {
+    position: absolute;
+    display: block;
+    width: 45px;
+    height: 45px;
+    background: #e88960;
+    border-radius: 50%;
+}
+
+.tree i {
+    top: -24px;
+    left: -22px;
+}
+
+.tree b {
+    top: -45px;
+    left: 2px;
+    background: #f2bd55;
+}
+
+.tree--one {
+    left: 22%;
+    transform: rotate(-4deg) scale(.9);
+}
+
+.tree--two {
+    left: 36%;
+    bottom: 22%;
+    transform: scale(.58);
+}
+
+.paper-plane {
+    position: absolute;
+    top: 25%;
+    left: 38%;
+    font-size: 3rem;
+    transform: rotate(-20deg);
+}
+
+.scribble {
+    position: absolute;
+    font: 700 2.3rem "Playfair Display", serif;
+}
+
+.scribble--one {
+    right: 29%;
+    top: 35%;
+    transform: rotate(14deg);
+}
+
+.scribble--two {
+    left: 12%;
+    top: 16%;
+    color: #fff7dd;
+    transform: rotate(20deg);
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.1rem 4vw;
+    border-top: 1px solid #183b3b2b;
+    color: #55706b;
+    font-size: .7rem;
+}
+
+footer a {
+    color: var(--ink);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+@media (max-width:700px) {
+    .chapter-nav {
+        grid-template-columns: repeat(2, 1fr);
+        min-height: 54vh;
+    }
+
+    .chapter,
+    .chapter-toggle {
+        min-height: 27vh;
+    }
+
+    .chapter-name {
+        font-size: 1.35rem;
+    }
+
+    .book-menu {
+        padding: .9rem 1rem 1rem;
+    }
+
+    .welcome {
+        padding: 4rem 8vw;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .welcome-illustration {
+        min-height: 230px;
+    }
+
+    .error-page {
+        padding: 3.5rem 8vw;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .error-illustration { min-height: 230px; }
+
+    footer {
+        flex-wrap: wrap;
+        gap: .6rem 1rem;
+    }
+
+    .search {
+        min-height: 42px;
+        padding-inline: 5vw;
+    }
+
+    body .chapter-nav {
+        grid-template-columns: repeat(2, 1fr);
+        min-height: 22vh;
+    }
+
+    body .chapter,
+    body .chapter-toggle {
+        min-height: 11vh;
+    }
+
+    body .chapter-toggle {
+        padding: .75rem 1rem;
+    }
+
+    body .chapter-name {
+        font-size: 1rem;
+    }
+
+    .chapter-nav {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nav-brand {
+        grid-column: 1 / -1;
+        width: 100%;
+        min-height: 58px;
+    }
+
+    .nav-brand img {
+        max-height: 42px;
+    }
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.category-page {
+    min-height: 73vh;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    background: linear-gradient(to right, var(--category-color, var(--ink)) 0 260px, #fffdf7 260px 100%);
+}
+
+.category-sidebar {
+    position: relative;
+    align-self: start;
+    height: max-content;
+    padding: 2.8rem 1.7rem;
+    background: #e9e1d0;
+    color: var(--ink);
+    border-top: 12px solid var(--category-color, var(--ink));
+    border-right: 12px solid var(--category-color, var(--ink));
+    border-bottom: 12px solid var(--category-color, var(--ink));
+    box-shadow: inset -7px 0 0 #d9cfbd, inset 0 -7px 0 #d9cfbd, inset 0 7px 0 #fff5df;
+}
+
+.category-elementary { --category-color: var(--coral); }
+.category-kindergarten { --category-color: var(--yellow); }
+.category-canteen { --category-color: var(--mint); }
+.category-club { --category-color: var(--blue); }
+
+.sidebar-back {
+    display: inline-block;
+    margin-bottom: 3rem;
+    color: #55706b;
+    text-decoration: none;
+    font-size: .75rem;
+}
+
+.sidebar-kicker {
+    margin: 0 0 1.2rem;
+    color: var(--ink);
+    font: 700 1.1rem "Playfair Display", serif;
+    font-size: 1.4rem;
+}
+
+.category-sidebar nav { display: grid; gap: .8rem; padding: .25rem .35rem .4rem 0; }
+.category-sidebar nav a {
+    position: relative;
+    z-index: 1;
+    min-height: 43px;
+    padding: .72rem .8rem .72rem 1.15rem;
+    display: flex;
+    align-items: center;
+    border: 1px solid #c7bba6;
+    border-radius: 2px 5px 5px 2px;
+    background: #fffdf7;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 600;
+    box-shadow: 0 4px 0 #e3d8c5, 0 7px 0 #b9aa93;
+    transform-origin: left center;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.category-sidebar nav a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 8px;
+    border-left: 1px solid #d7cbb8;
+    box-shadow: 2px 0 0 #fffdf7;
+}
+.category-sidebar nav a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 5px;
+    border-radius: 2px 0 0 2px;
+    background: #183b3b;
+}
+.category-elementary .category-sidebar nav a::after { background: var(--coral); }
+.category-kindergarten .category-sidebar nav a::after { background: var(--yellow); }
+.category-canteen .category-sidebar nav a::after { background: var(--mint); }
+.category-club .category-sidebar nav a::after { background: var(--blue); }
+.category-sidebar nav a:hover,
+.category-sidebar nav a.is-current {
+    background: #fffaf0;
+    color: var(--ink);
+    transform: translateX(5px) rotate(-1deg);
+    box-shadow: 0 5px 0 #e3d8c5, 0 9px 0 #b9aa93;
+}
+.category-content { padding: 5rem 8vw; }
+.category-lead { max-width: 560px; color: #55706b; font-size: 1.1rem; line-height: 1.7; }
+.info-grid { max-width: 850px; margin-top: 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.info-grid article { padding: 1.35rem; border-top: 3px solid var(--coral); background: var(--paper); }
+.info-grid span { color: var(--coral); font-size: .7rem; font-weight: 700; }
+.info-grid h3 { margin: 1.7rem 0 .7rem; font: 700 1.2rem "Playfair Display", serif; }
+.info-grid p { margin: 0; color: #55706b; font-size: .82rem; line-height: 1.55; }
+.news-list { max-width: 850px; margin-top: 3rem; display: grid; gap: 1rem; }
+.news-card { padding: 1.35rem 1.5rem; border-left: 5px solid var(--category-color, var(--coral)); background: var(--paper); box-shadow: 0 4px 0 #e3d8c5; }
+.news-card time { color: #55706b; font-size: .72rem; font-weight: 700; }
+.news-card h2 { margin: .7rem 0 .5rem; font-size: 1.4rem; }
+.news-card p { margin: 0; color: #55706b; line-height: 1.6; }
+
+@media (max-width:700px) {
+    .category-page { grid-template-columns: 1fr; background: #fffdf7; }
+    .category-sidebar { padding: 1.5rem 8vw; }
+    .sidebar-back { margin-bottom: 1.5rem; }
+    .category-content { padding: 3.5rem 8vw; }
+    .info-grid { grid-template-columns: 1fr; margin-top: 2rem; }
+}

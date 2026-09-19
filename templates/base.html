@@ -1,0 +1,21 @@
+{% load static %}
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}ZŠ a MŠ Bolatice{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  <link rel="icon" href="{% static 'img/logo.png' %}" type="image/x-icon" />
+</head>
+<body{% if active_slug %} class="inner-page category-{{ active_slug }}"{% endif %}>
+  <div class="page-load-bar" aria-hidden="true"><span class="page-load-progress"></span></div>
+  <main>
+    {% include "partials/navigation.html" %}
+    <div class="search"><span>Vyhledavač</span><time datetime="2026-09-18">18. 9. 2026</time></div>
+    {% block content %}{% endblock %}
+  </main>
+  <footer id="kontakt"><span>© 2024 ZŠ a MŠ Bolatice</span><span>Hlavní 24 · Bolatice</span><a href="mailto:skola@bolatice.cz">skola@bolatice.cz ↗</a></footer>
+  <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

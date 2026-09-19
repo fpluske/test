@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ category.name }} · ZŠ a MŠ Bolatice{% endblock %}
+{% block content %}
+<section class="category-page">
+  <aside class="category-sidebar" aria-label="Navigace {{ category.name }}">
+    <p class="sidebar-kicker">{{ category.icon }} {{ category.name }}</p>
+    <nav>{% for page_slug, label in category.links %}<a data-category="{{ category.class }}" class="{% if forloop.first %}is-current{% endif %}" href="{% url category.sub_url_name page_slug=page_slug %}">{{ label }}</a>{% endfor %}</nav>
+  </aside>
+  <div class="category-content">
+    <p class="section-kicker">{{ category.chapter }} · {{ category.name }}</p>
+    <h1>{{ category.name }}.</h1>
+    <p class="category-lead">{{ category.lead }}</p>
+    <div class="info-grid"><article><span>01</span><h2>Informace pro vás</h2><p>Najdete zde důležité zprávy, dokumenty a praktické informace k této části školy.</p></article><article><span>02</span><h2>Učíme se spolu</h2><p>Prostor pro děti, rodiče i pedagogy, který budeme postupně naplňovat obsahem.</p></article><article><span>03</span><h2>Kontaktujte nás</h2><p>Ozvěte se nám s dotazem. Rádi vám poradíme a nasměrujeme vás.</p></article></div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}{{ subcategory.name }} · {{ category.name }}{% endblock %}
+{% block content %}
+<section class="category-page">
+  <aside class="category-sidebar" aria-label="Navigace {{ category.name }}">
+    <p class="sidebar-kicker">{{ category.icon }} {{ category.name }}</p>
+    <nav>{% for page_slug, label in category.links %}<a data-category="{{ category.class }}" class="{% if page_slug == subcategory.slug %}is-current{% endif %}" href="{% url category.sub_url_name page_slug=page_slug %}">{{ label }}</a>{% endfor %}</nav>
+  </aside>
+  <div class="category-content">
+    <p class="section-kicker">{{ category.chapter }} · {{ category.name }}</p>
+    <h1>{{ subcategory.name }}.</h1>
+    {% if subcategory.slug == "aktuality" %}
+      <p class="category-lead">Novinky a důležité zprávy z {{ category.name }}.</p>
+      <div class="news-list">
+        {% for post in news_posts %}
+          <article class="news-card"><time datetime="{{ post.published_at|date:'Y-m-d' }}">{{ post.published_at|date:'j. n. Y' }}</time><h2>{{ post.title }}</h2><p>{{ post.excerpt|default:post.content|truncatewords:35 }}</p></article>
+        {% empty %}
+          <p class="category-lead">Zatím zde nejsou žádné zveřejněné aktuality.</p>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="category-lead">{{ subcategory.content|default:"Tady najdete podrobné informace k této části školy." }}</p>
+      <div class="info-grid"><article><span>01</span><h2>Aktuální informace</h2><p>Obsah této podstránky může škola jednoduše doplňovat v administraci.</p></article><article><span>02</span><h2>Pro vás</h2><p>Přehledně uspořádané informace pro žáky, rodiče i návštěvníky školy.</p></article><article><span>03</span><h2>Máte dotaz?</h2><p>Kontaktujte školu a rádi vám poskytneme další informace.</p></article></div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

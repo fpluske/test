@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}404 · ZŠ a MŠ Bolatice{% endblock %}
+{% block content %}
+<section class="error-page" aria-labelledby="error-title">
+  <div class="error-copy">
+    <p class="section-kicker">Kapitola se někam zatoulala</p>
+    <p class="error-code" aria-hidden="true">404</p>
+    <h1 id="error-title">Tahle stránka<br /><em>tu není.</em></h1>
+    <p class="welcome-text">Vypadá to, že odkaz vede na prázdnou stránku. Vraťte se na začátek a zkuste to znovu.</p>
+    <a class="text-link" href="{% url 'school:home' %}">Zpět na hlavní stránku <span>↗</span></a>
+  </div>
+  <div class="error-illustration" aria-hidden="true">
+    <div class="error-page-shape"></div>
+    <span class="error-question">?</span>
+    <span class="error-star">✦</span>
+    <span class="error-arrow">↗</span>
+  </div>
+</section>
+{% endblock %}
