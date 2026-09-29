@@ -12,7 +12,18 @@
   <div class="page-load-bar" aria-hidden="true"><span class="page-load-progress"></span></div>
   <main>
     {% include "partials/navigation.html" %}
-    <div class="search"><span>Vyhledavač</span><time datetime="2026-09-18">18. 9. 2026</time></div>
+    <div class="search">
+      <form class="search-form" method="get" action="{% url 'school:search' %}" data-live-search>
+        <label class="sr-only" for="site-search">Vyhledat na webu</label>
+        <input id="site-search" name="q" type="search" value="{{ query|default:'' }}" placeholder="Vyhledat na webu…" />
+        <button type="submit" aria-label="Spustit vyhledávání">⌕</button>
+        <div class="live-search-results" data-live-search-results></div>
+      </form>
+      <div class="search-meta">
+        <time datetime="{{ today|date:'Y-m-d' }}">{{ today|date:"j. n. Y" }}</time>
+        <span class="holiday">Svátek: {{ holiday_name }}</span>
+      </div>
+    </div>
     {% block content %}{% endblock %}
   </main>
   <footer id="kontakt"><span>© 2024 ZŠ a MŠ Bolatice</span><span>Hlavní 24 · Bolatice</span><a href="mailto:skola@bolatice.cz">skola@bolatice.cz ↗</a></footer>

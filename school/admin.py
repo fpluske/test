@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, NewsPost, Subcategory
+from .models import Category, HomePhoto, NewsPost, Subcategory
 
 
 @admin.register(Category)
@@ -27,3 +27,12 @@ class NewsPostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     search_fields = ("title", "excerpt", "content")
     date_hierarchy = "published_at"
+
+
+@admin.register(HomePhoto)
+class HomePhotoAdmin(admin.ModelAdmin):
+    list_display = ("image", "title", "sort_order", "is_published", "created_at")
+    list_editable = ("sort_order", "is_published")
+    list_filter = ("is_published",)
+    search_fields = ("title", "alt_text")
+    ordering = ("sort_order", "-created_at")

@@ -54,3 +54,20 @@ class NewsPost(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class HomePhoto(models.Model):
+    image = models.ImageField(upload_to="home_photos/")
+    title = models.CharField(max_length=160, blank=True)
+    alt_text = models.CharField(max_length=160, blank=True)
+    sort_order = models.PositiveIntegerField(default=0)
+    is_published = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["sort_order", "-created_at"]
+        verbose_name = "fotografie na úvodní stránce"
+        verbose_name_plural = "fotografie na úvodní stránce"
+
+    def __str__(self):
+        return self.title or f"Fotografie {self.pk}"

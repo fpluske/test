@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Vyhledávání · ZŠ a MŠ Bolatice{% endblock %}
+{% block content %}
+<section class="search-page" aria-labelledby="search-title">
+  <form class="search-page-form" method="get" action="{% url 'school:search' %}">
+    <label class="sr-only" for="page-search">Vyhledat na webu</label>
+    <input id="page-search" name="q" type="search" value="{{ query|default:'' }}" placeholder="Co hledáte?" autofocus />
+    <button type="submit">Hledat</button>
+  </form>
+  <p class="section-kicker">Vyhledávání</p>
+  <h3 id="search-title">{% if query %}Výsledky pro<br /><em>„{{ query }}“.</em>{% else %}Co hledáte?{% endif %}</h3>
+  {% if query %}
+    {% if search_results %}
+      <div class="search-result-list">
+        {% for result in search_results %}
+          <a class="search-result search-result--{{ result.theme }}" href="{{ result.url }}">
+            <span class="search-result-type">{{ result.type }}</span>
+            <span class="search-result-title">{{ result.title }}</span>
+            {% if result.excerpt %}<span class="search-result-excerpt">{{ result.excerpt|truncatewords:28 }}</span>{% endif %}
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="search-empty">Nic jsme nenašli. Zkuste jiné slovo.</p>
+    {% endif %}
+  {% else %}
+    <p class="search-empty">Zadejte hledaný výraz do pole nahoře.</p>
+  {% endif %}
+</section>
+{% endblock %}
