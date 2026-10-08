@@ -50,7 +50,18 @@ showRoute();
 const liveSearch = document.querySelector('[data-live-search]');
 const liveSearchInput = liveSearch?.querySelector('input');
 const liveSearchResults = liveSearch?.querySelector('[data-live-search-results]');
+const liveSearchButton = liveSearch?.querySelector('button');
+const compactSearch = window.matchMedia('(max-width: 700px)');
 let liveSearchTimer;
+
+liveSearchButton?.addEventListener('click', (event) => {
+  if (!compactSearch.matches || liveSearch?.classList.contains('is-expanded')) return;
+  event.preventDefault();
+  liveSearch?.classList.add('is-expanded');
+  liveSearchButton.setAttribute('aria-expanded', 'true');
+  liveSearchInput?.focus();
+});
+
 const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => ({
   '&': '&amp;',
   '<': '&lt;',
@@ -101,7 +112,11 @@ liveSearchInput?.addEventListener('input', () => {
 });
 
 document.addEventListener('click', (event) => {
-  if (liveSearch && !liveSearch.contains(event.target)) renderLiveResults([], '');
+  if (liveSearch && !liveSearch.contains(event.target)) {
+    renderLiveResults([], '');
+    liveSearch.classList.remove('is-expanded');
+    liveSearchButton?.setAttribute('aria-expanded', 'false');
+  }
 });
 
 document.querySelectorAll('[data-slideshow]').forEach((slideshow) => {

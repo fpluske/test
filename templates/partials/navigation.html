@@ -22,7 +22,7 @@
     <form class="search-form" method="get" action="{% url 'school:search' %}" data-live-search>
       <label class="sr-only" for="site-search">Vyhledat na webu</label>
       <input id="site-search" name="q" type="search" value="{{ query|default:'' }}" placeholder="Vyhledat na webu…" />
-      <button type="submit" aria-label="Spustit vyhledávání">⌕</button>
+      <button type="submit" aria-label="Spustit vyhledávání" aria-expanded="false">⌕</button>
       <div class="live-search-results" data-live-search-results></div>
     </form>
     <div class="search-meta">
