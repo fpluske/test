@@ -4,7 +4,7 @@ from . import views
 app_name = "school"
 
 urlpatterns = [
-    path("/", views.home, name="home"),
+    path("", views.home, name="home"),
     path("hledat/", views.search_page, name="search"),
     path("zakladni-skola/", views.category, {"slug": "elementary"}, name="elementary"),
     path("materska-skola/", views.category, {"slug": "kindergarten"}, name="kindergarten"),

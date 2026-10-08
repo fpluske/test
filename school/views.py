@@ -26,6 +26,7 @@ SUB_URL_NAMES = {
 
 LOCAL_HOLIDAYS = {
     (9, 25): "Zlata",
+    (10, 8): "Věra",
 }
 
 

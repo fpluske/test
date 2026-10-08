@@ -3,17 +3,31 @@
   <a class="nav-brand" href="{% url 'school:home' %}" aria-label="ZŠ a MŠ Bolatice – hlavní stránka">
     <img src="{% static 'img/logo.png' %}" alt="ZŠ a MŠ Bolatice" />
   </a>
-  {% for item in categories %}
-    <article class="chapter chapter--{{ item.class }}">
-      <button class="chapter-toggle" type="button" data-page="{% url item.url_name %}" aria-expanded="false" aria-controls="{{ item.slug }}-menu">
-        <span class="chapter-icon" aria-hidden="true">{{ item.icon }}</span>
-        <span class="chapter-name">{{ item.name }}</span>
-        <span class="chapter-arrow" aria-hidden="true">↘</span>
-      </button>
-      <div class="book-menu" id="{{ item.slug }}-menu">
-        <p class="menu-kicker">{{ item.chapter }}</p>
-        {% for page_slug, label in item.links %}<a data-category="{{ item.class }}" href="{% url item.sub_url_name page_slug=page_slug %}">{{ label }} <span>→</span></a>{% endfor %}
-      </div>
-    </article>
-  {% endfor %}
+  <div class="nav-categories">
+    {% for item in categories %}
+      <article class="chapter chapter--{{ item.class }}">
+        <button class="chapter-toggle" type="button" data-page="{% url item.url_name %}" aria-expanded="false" aria-controls="{{ item.slug }}-menu">
+          <span class="chapter-icon" aria-hidden="true">{{ item.icon }}</span>
+          <span class="chapter-name">{{ item.name }}</span>
+          <span class="chapter-arrow" aria-hidden="true">↘</span>
+        </button>
+        <div class="book-menu" id="{{ item.slug }}-menu">
+          <p class="menu-kicker">{{ item.chapter }}</p>
+          {% for page_slug, label in item.links %}<a data-category="{{ item.class }}" href="{% url item.sub_url_name page_slug=page_slug %}">{{ label }} <span>→</span></a>{% endfor %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+  <div class="nav-tools">
+    <form class="search-form" method="get" action="{% url 'school:search' %}" data-live-search>
+      <label class="sr-only" for="site-search">Vyhledat na webu</label>
+      <input id="site-search" name="q" type="search" value="{{ query|default:'' }}" placeholder="Vyhledat na webu…" />
+      <button type="submit" aria-label="Spustit vyhledávání">⌕</button>
+      <div class="live-search-results" data-live-search-results></div>
+    </form>
+    <div class="search-meta">
+      <time datetime="{{ today|date:'Y-m-d' }}">{{ today|date:"j. n. Y" }}</time>
+      <span class="holiday">Svátek: {{ holiday_name }}</span>
+    </div>
+  </div>
 </nav>
